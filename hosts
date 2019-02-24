@@ -2,4 +2,4 @@
 centos
 
 [centos]
-nginx ansible_host=116.203.124.31
+nginx ansible_host=116.203.124.3

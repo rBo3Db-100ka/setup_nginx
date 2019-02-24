@@ -7,7 +7,7 @@ pipeline {
             steps {
                 parallel (
                     check_connectivity: {
-                        sh "ansible centos -m ping"
+                        sh "ansible centos -m ping1"
                     },
                     check_syntax: {
                         sh "echo Done"

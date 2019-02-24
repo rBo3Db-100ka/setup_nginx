@@ -2,7 +2,8 @@ pipeline {
     agent any
 
     environment {
-        ANSIBLE_PLAYBOOK = "${WORKSPACE}/configure_nginx.yml"
+        ANSIBLE_PLAYBOOK = sh("which ansible-playbook")
+        PLAYBOOK = "${WORKSPACE}/configure_nginx.yml"
     }
 
     stages {
@@ -13,14 +14,14 @@ pipeline {
                         sh "ansible centos -m ping"
                     },
                     "Check syntax": {
-                        sh "ansible-playbook ${ANSIBLE_PLAYBOOK} --syntax-check"
+                        sh "ANSIBLE_PLAYBOOK ${PLAYBOOK} --syntax-check"
                     }
                 )
             }
         }
         stage('Run Nginx Role') {
             steps {
-                sh "ansible-playbook configure_nginx.yml"
+                sh "ANSIBLE_PLAYBOOK ${PLAYBOOK}"
             }
         }
     }

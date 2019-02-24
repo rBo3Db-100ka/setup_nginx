@@ -16,7 +16,7 @@ pipeline {
         }
         stage('Run Nginx Role') {
             steps {
-                ansiColor('xterm') {
+                ansiColor('gnome-terminal') {
                     ansiblePlaybook(
                         inventory: 'hosts',
                         playbook: 'configure_nginx.yml',

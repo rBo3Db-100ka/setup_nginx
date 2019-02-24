@@ -9,8 +9,7 @@ pipeline {
     stages {
         stage('output_version') {
             steps {
-                echo "ANSIBLE_PLAYBOOK: ${ANSIBLE_PLAYBOOK}"
-                echo "PLAYBOOK: ${PLAYBOOK}"
+                echo "${ANSIBLE_PLAYBOOK} ${PLAYBOOK} --syntax-check"
             }
         }
         stage('Check ansible connectivity and syntax') {

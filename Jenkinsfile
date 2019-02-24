@@ -6,10 +6,10 @@ pipeline {
         stage('Check ansible connectivity and syntax') {
             steps {
                 parallel (
-                    a: {
+                    check_connectivity: {
                         sh "ansible centos -m ping"
                     },
-                    b: {
+                    check_syntax: {
                         sh "echo 1"
                     }
                 )

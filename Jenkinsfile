@@ -2,7 +2,8 @@ pipeline {
     agent any
 
     environment {
-        PLAYBOOK = "configure_nginx.yml"
+        CONFIGURE_NGINX = "configure_nginx.yml"
+        CHECK_CONNECTIVITY = "check_connectivity.yml"
         INVENTORY = "hosts"
     }
 
@@ -11,12 +12,15 @@ pipeline {
             steps {
                 parallel (
                     "CHECK CONNECTIVITY": {
-                        sh "ansible centos -m ping"
+                        ansiblePlaybook(
+                            inventory: "${INVENTORY}",
+                            playbook: "${CHECK_CONNECTIVITY}"
+                        )
                     },
                     "CHECK PLAYBOOK SYNTAX": {
                         ansiblePlaybook(
                             inventory: "${INVENTORY}",
-                            playbook: "${PLAYBOOK}",
+                            playbook: "${CONFIGURE_NGINX}",
                             extras: '--syntax-check'
                         )
                     }
@@ -27,7 +31,7 @@ pipeline {
             steps {
                 ansiblePlaybook(
                     inventory: "${INVENTORY}",
-                    playbook: "${PLAYBOOK}",
+                    playbook: "${CONFIGURE_NGINX}",
                     extraVars: [verbose: 1]
                 )
             }

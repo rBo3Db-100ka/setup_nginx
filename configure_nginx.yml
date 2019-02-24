@@ -1,6 +1,5 @@
 ---
 - name: CONFIGURE NGINX
-#  gather_facts: False
   hosts:
     - nginx
   roles:

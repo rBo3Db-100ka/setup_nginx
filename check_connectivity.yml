@@ -1,0 +1,7 @@
+---
+- name: CHECK ANSIBLE CONNECTIVITY
+  gather_facts: false
+  hosts:
+    - nginx
+  tasks:
+    - ping:

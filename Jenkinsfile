@@ -16,8 +16,8 @@ pipeline {
                     },
                     "Check syntax": {
                         ansiblePlaybook(
-                            inventory: ${INVENTORY},
-                            playbook: ${PLAYBOOK},
+                            inventory: "${INVENTORY}",
+                            playbook: "${PLAYBOOK}",
                             extras: '--syntax-check'
                         )
                     }
@@ -27,8 +27,8 @@ pipeline {
         stage('Run Nginx Role') {
             steps {
                 ansiblePlaybook(
-                    inventory: ${INVENTORY},
-                    playbook: ${PLAYBOOK},
+                    inventory: "${INVENTORY}",
+                    playbook: "${PLAYBOOK}",
                     extraVars: [verbose: True]
                 )
             }

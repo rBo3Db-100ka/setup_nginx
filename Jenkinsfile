@@ -14,14 +14,14 @@ pipeline {
                         sh "ansible centos -m ping"
                     },
                     "Check syntax": {
-                        sh "ANSIBLE_PLAYBOOK ${PLAYBOOK} --syntax-check"
+                        sh "${ANSIBLE_PLAYBOOK} ${PLAYBOOK} --syntax-check"
                     }
                 )
             }
         }
         stage('Run Nginx Role') {
             steps {
-                sh "ANSIBLE_PLAYBOOK ${PLAYBOOK}"
+                sh "${ANSIBLE_PLAYBOOK} ${PLAYBOOK}"
             }
         }
     }

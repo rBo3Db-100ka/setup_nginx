@@ -1,10 +1,7 @@
 pipeline {
     agent any
 
-    environment {
-        PLAYBOOK = "configure_nginx.yml"
-        INVENTORY = "hosts"
-    }
+
 
     stages {
         stage('Check ansible connectivity and syntax') {
@@ -15,8 +12,8 @@ pipeline {
                     },
                     "Check syntax": {
                         ansiblePlaybook(
-                            inventory: "${INVENTORY}",
-                            playbook: "${PLAYBOOK}",
+                            inventory: 'hosts',
+                            playbook: 'configure_nginx.yml',
                             extras: '--syntax-check'
                         )
                     }
@@ -26,8 +23,8 @@ pipeline {
         stage('Run Nginx Role') {
             steps {
                 ansiblePlaybook(
-                    inventory: "hosts",
-                    playbook: "configure_nginx.yml",
+                    inventory: 'hosts',
+                    playbook: 'configure_nginx.yml',
                     extraVars: [verbose: True]
                 )
             }

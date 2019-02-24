@@ -19,7 +19,7 @@ pipeline {
         }
         stage('Check response from host') {
             steps {
-                  curl -s -I -w '%{http_code}' http://116.203.124.3:80
+                  sh "curl -s -I -w '%{http_code}' http://116.203.124.3:80"
 #                 def http_code = "curl -s -I -w '%{http_code}' http://116.203.124.3:80"
 #                 sh "echo ${http_code}"
             }

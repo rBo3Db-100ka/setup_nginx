@@ -22,7 +22,7 @@ pipeline {
     }
     post ('Check response from host') {
         success {
-            sh "curl -s -o /dev/null -I -w '%{http_code}' http://116.203.124.13:80"
+            sh "curl -I --connect-timeout 3 http://116.203.124.3:80"
         }
     }
 }

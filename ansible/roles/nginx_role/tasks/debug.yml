@@ -1,5 +1,0 @@
----
-- name: DEBUGGING
-  debug:
-    var: result
-  when: verbose is defined

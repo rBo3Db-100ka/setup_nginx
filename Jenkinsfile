@@ -10,7 +10,7 @@ pipeline {
         }
         stage('Run Nginx role') {
             steps {
-                echo "ansible-playbook configure_nginx.yml"
+                ansible-playbook configure_nginx.yml
             }
         }
         stage('Check response from host') {

@@ -1,5 +1,0 @@
----
-redhat_enabled: True
-nginx_user: "nginx"
-nginx_pidfile: "/run/nginx.pid"
-epel_repofile_path: "/etc/yum.repos.d/epel.repo"

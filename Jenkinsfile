@@ -14,8 +14,8 @@ pipeline {
         }
         stage('Check response from host') {
             steps {
-                 sh "http_code=$(url -s -I -w '%{http_code}' http://116.203.124.3:80)"
-                 sh "echo ${http_code}"
+                 http_code=$(url -s -I -w ""%{http_code}" http://116.203.124.3:80)
+                 echo ${http_code}
             }
         }
     }

@@ -1,11 +1,6 @@
 pipeline {
     agent any
 
-    environment {
-        PLAYBOOK = "${WORKSPACE}/configure_nginx.yml"
-        GROUP = "centos"
-    }
-
     stages {
         stage('Check ansible connectivity and syntax') {
             steps {
@@ -21,11 +16,14 @@ pipeline {
         }
         stage('Run Nginx Role') {
             steps {
-                sh "ansible-playbook ${PLAYBOOK}"
+                ansiblePlaybook(
+                    inventory: 'hosts',
+                    playbook: 'configure_nginx.yml'
+                )
             }
         }
     }
-    post ('Check response from host') {
+    post ('Check response from nginx') {
         success {
             sh "curl -I --connect-timeout 3 http://116.203.124.3:80"
         }

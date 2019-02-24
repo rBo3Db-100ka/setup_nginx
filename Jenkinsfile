@@ -2,31 +2,26 @@ pipeline {
     agent any
 
     environment {
-        ANSIBLE_PLAYBOOK = sh(returnStdout: true, script: "which ansible-playbook")
         PLAYBOOK = "${WORKSPACE}/configure_nginx.yml"
+        GROUP = "centos"
     }
 
     stages {
-        stage('output_version') {
-            steps {
-                sh "${ANSIBLE_PLAYBOOK} ${PLAYBOOK} --syntax-check"
-            }
-        }
         stage('Check ansible connectivity and syntax') {
             steps {
                 parallel (
                     "Check connectivity": {
-                        sh "ansible centos -m ping"
+                        sh "ansible ${GROUP} -m ping"
                     },
                     "Check syntax": {
-                        sh "${ANSIBLE_PLAYBOOK} ${PLAYBOOK} --syntax-check"
+                        sh "ansible-playbook ${PLAYBOOK} --syntax-check"
                     }
                 )
             }
         }
         stage('Run Nginx Role') {
             steps {
-                sh "${ANSIBLE_PLAYBOOK} ${PLAYBOOK}"
+                sh "ansible-playbook ${PLAYBOOK}"
             }
         }
     }

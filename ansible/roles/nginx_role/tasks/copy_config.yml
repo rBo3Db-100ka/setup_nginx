@@ -1,0 +1,30 @@
+---
+- name: CHECK CONFIG FILE
+  stat:
+    path: "{{ nginx_conf_file_path }}"
+  register: file
+
+- name: BACKUP ORIG CONFIG
+  shell: mv "{{ nginx_conf_file_path }}" "{{ nginx_conf_file_path }}"_orig
+  when: file.stat.exists
+
+- name: COPY NGINX CONFIGURATION FILE
+  template:
+    src: nginx.conf.j2
+    dest: "{{ nginx_conf_file_path }}"
+    owner: root
+    group: root
+    mode: 0644
+  notify: RESTART NGINX
+  register: copy
+- import_tasks: debug.yml
+  vars:
+    result: "{{ copy }}"
+
+- name: CHECK NGINX CONFIGURATION
+  shell: nginx -t -c {{ nginx_conf_file_path }}
+  changed_when: False
+  register: check
+- import_tasks: debug.yml
+  vars:
+    result: "{{ check }}"

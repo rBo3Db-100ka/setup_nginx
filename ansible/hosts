@@ -1,0 +1,5 @@
+[test:children]
+centos
+
+[centos]
+nginx ansible_host=116.203.124.3

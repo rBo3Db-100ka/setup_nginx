@@ -7,6 +7,12 @@ pipeline {
     }
 
     stages {
+        stage('output_version') {
+            steps {
+                echo "ANSIBLE_PLAYBOOK: ${ANSIBLE_PLAYBOOK}"
+                echo "PLAYBOOK: ${PLAYBOOK}"
+            }
+        }
         stage('Check ansible connectivity and syntax') {
             steps {
                 parallel (

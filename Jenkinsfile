@@ -16,11 +16,13 @@ pipeline {
         }
         stage('Run Nginx Role') {
             steps {
-                ansiblePlaybook(
-                    inventory: 'hosts',
-                    playbook: 'configure_nginx.yml',
-                    colorized: true
-                )
+                ansiColor('xterm') {
+                    ansiblePlaybook(
+                        inventory: 'hosts',
+                        playbook: 'configure_nginx.yml',
+                        colorized: true
+                    )
+                }
             }
         }
     }

@@ -6,6 +6,9 @@
 - import_tasks: debug.yml
   vars:
     result: "{{ epel_repofile_result }}"
+  tags:
+    - check-epel-repos
+    - install-epel-repos
 
 - name: INSTALL EPEL REPO
   yum:
@@ -17,9 +20,14 @@
 - import_tasks: debug.yml
   vars:
     result: "{{ repos }}"
+  tags:
+  - install-epel-repos
 
-- name: UPDATE CACHE
+- name: UPDATE YUM CACHE
   shell: yum clean metadata
   args:
     warn: False
   when: repos.changed
+  tags:
+    - update-repos-cache
+    - install-epel-repos

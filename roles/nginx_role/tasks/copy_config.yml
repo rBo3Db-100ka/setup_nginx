@@ -1,8 +1,14 @@
 ---
-- name: CHECK CONFIG FILE
+- name: CHECK NGINX CONFIGURATION FILE
   stat:
     path: "{{ nginx_conf_file_path }}"
   register: file
+- import_tasks: debug.yml
+  vars:
+    result: "{{ file }}"
+  tags:
+    - check-orig-config
+    - config-copy
 
 - name: BACKUP ORIG CONFIG
   shell: mv "{{ nginx_conf_file_path }}" "{{ nginx_conf_file_path }}"_orig
@@ -20,11 +26,16 @@
 - import_tasks: debug.yml
   vars:
     result: "{{ copy }}"
+  tags:
+    - config-copy
 
-- name: CHECK NGINX CONFIGURATION
+- name: CHECK SYNTAX NGINX CONFIGURATION
   shell: nginx -t -c {{ nginx_conf_file_path }}
   changed_when: False
   register: check
 - import_tasks: debug.yml
   vars:
     result: "{{ check }}"
+  tags:
+    - check-syntax-nginx
+    - config-copy

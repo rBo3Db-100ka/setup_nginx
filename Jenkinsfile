@@ -2,7 +2,7 @@ pipeline {
     agent any
 
     environment {
-        ANSIBLE_PLAYBOOK = sh("which ansible-playbook")
+        ANSIBLE_PLAYBOOK = sh("which ansible-playbook"),
         PLAYBOOK = "${WORKSPACE}/configure_nginx.yml"
     }
 

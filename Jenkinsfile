@@ -6,10 +6,10 @@ pipeline {
             steps {
                 parallel (
                     "Check connectivity": {
-                        sh "ansible ${GROUP} -m ping"
+                        sh "ansible centos -m ping"
                     },
                     "Check syntax": {
-                        sh "ansible-playbook ${PLAYBOOK} --syntax-check"
+                        sh "ansible-playbook configure_nginx.yml --syntax-check"
                     }
                 )
             }

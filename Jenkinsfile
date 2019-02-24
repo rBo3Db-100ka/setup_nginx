@@ -1,11 +1,9 @@
-node {
-    ansiColor('xterm') {
-        stage "\u001B[31mI'm Red\u001B[0m Now not"
-    }
-}
-
 pipeline {
     agent any
+
+    environment {
+        ANSIBLE_PLAYBOOK = "${WORKSPACE}/configure_nginx.yml"
+    }
 
     stages {
         stage('Check ansible connectivity and syntax') {
@@ -15,7 +13,7 @@ pipeline {
                         sh "ansible centos -m ping"
                     },
                     "Check syntax": {
-                        sh "ansible-playbook configure_nginx.yml --syntax-check"
+                        sh "ansible-playbook ${ANSIBLE_PLAYBOOK} --syntax-check"
                     }
                 )
             }

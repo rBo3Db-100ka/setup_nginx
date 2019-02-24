@@ -6,7 +6,6 @@ pipeline {
         INVENTORY = "hosts"
     }
 
-
     stages {
         stage('Check ansible connectivity and syntax') {
             steps {
@@ -27,8 +26,8 @@ pipeline {
         stage('Run Nginx Role') {
             steps {
                 ansiblePlaybook(
-                    inventory: "${INVENTORY}",
-                    playbook: "${PLAYBOOK}",
+                    inventory: "hosts",
+                    playbook: "configure_nginx.yml",
                     extraVars: [verbose: True]
                 )
             }

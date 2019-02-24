@@ -1,8 +1,6 @@
 pipeline {
     agent any
 
-
-
     stages {
         stage('Check ansible connectivity and syntax') {
             steps {
@@ -25,7 +23,7 @@ pipeline {
                 ansiblePlaybook(
                     inventory: 'hosts',
                     playbook: 'configure_nginx.yml',
-                    extraVars: [verbose: True]
+                    extraVars: [verbose: 1]
                 )
             }
         }

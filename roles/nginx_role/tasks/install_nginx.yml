@@ -1,0 +1,21 @@
+---
+- name: INSTALL NGINX
+  yum:
+    update_cache: yes
+    name: nginx
+    state: latest
+  notify: RESTART NGINX
+  register: install
+- import_tasks: debug.yml
+  vars:
+    result: "{{ install }}"
+
+- name: ENABLE NGINX TO START AT BOOT
+  service:
+    name: nginx
+    state: started
+    enabled: yes
+  register: info
+- import_tasks: debug.yml
+  vars:
+    result: "{{ info }}"

@@ -1,0 +1,25 @@
+---
+- name: CHECK IF EPEL REPO IS ALREADY INSTALLED
+  stat:
+    path: "{{ epel_repofile_path }}"
+  register: epel_repofile_result
+- import_tasks: debug.yml
+  vars:
+    result: "{{ epel_repofile_result }}"
+
+- name: INSTALL EPEL REPO
+  yum:
+    update_cache: yes
+    name: epel-release
+    state: installed
+  when: not epel_repofile_result.stat.exists
+  register: repos
+- import_tasks: debug.yml
+  vars:
+    result: "{{ repos }}"
+
+- name: UPDATE CACHE
+  shell: yum clean metadata
+  args:
+    warn: False
+  when: repos.changed

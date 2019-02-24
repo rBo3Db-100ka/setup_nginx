@@ -1,6 +1,12 @@
 pipeline {
     agent any
 
+    environment {
+        PLAYBOOK = "${WORKSPACE}/configure_nginx.yml"
+        INVENTORY = "${WORKSPACE}/hosts"
+    }
+
+
     stages {
         stage('Check ansible connectivity and syntax') {
             steps {
@@ -10,8 +16,8 @@ pipeline {
                     },
                     "Check syntax": {
                         ansiblePlaybook(
-                            inventory: 'hosts',
-                            playbook: 'configure_nginx.yml',
+                            inventory: ${INVENTORY},
+                            playbook: ${PLAYBOOK},
                             extras: '--syntax-check'
                         )
                     }
@@ -20,14 +26,11 @@ pipeline {
         }
         stage('Run Nginx Role') {
             steps {
-                ansiColor('gnome-terminal') {
-                    ansiblePlaybook(
-                        inventory: 'hosts',
-                        playbook: 'configure_nginx.yml',
-                        extraVars: [verbose: 1],
-                        colorized: true
-                    )
-                }
+                ansiblePlaybook(
+                    inventory: ${INVENTORY},
+                    playbook: ${PLAYBOOK},
+                    extraVars: [verbose: True]
+                )
             }
         }
     }

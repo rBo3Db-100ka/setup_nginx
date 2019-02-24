@@ -9,7 +9,11 @@ pipeline {
                         sh "ansible centos -m ping"
                     },
                     "Check syntax": {
-                        sh "ansible-playbook configure_nginx.yml --syntax-check"
+                        ansiblePlaybook(
+                            inventory: 'hosts',
+                            playbook: 'configure_nginx.yml',
+                            extras: '--syntax-check'
+                        )
                     }
                 )
             }
@@ -20,6 +24,7 @@ pipeline {
                     ansiblePlaybook(
                         inventory: 'hosts',
                         playbook: 'configure_nginx.yml',
+                        extraVars: 'verbose=1'
                         colorized: true
                     )
                 }

@@ -2,8 +2,8 @@ pipeline {
     agent any
 
     environment {
-        PLAYBOOK = "${WORKSPACE}/configure_nginx.yml"
-        INVENTORY = "${WORKSPACE}/hosts"
+        PLAYBOOK = "configure_nginx.yml"
+        INVENTORY = "hosts"
     }
 
 

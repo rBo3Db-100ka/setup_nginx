@@ -24,7 +24,7 @@ pipeline {
                     ansiblePlaybook(
                         inventory: 'hosts',
                         playbook: 'configure_nginx.yml',
-                        extraVars: 'verbose=1',
+                        extraVars: 'verbose',
                         colorized: true
                     )
                 }

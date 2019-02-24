@@ -1,34 +1,39 @@
 pipeline {
     agent any
 
+    environment {
+        PLAYBOOK = "configure_nginx.yml"
+        INVENTORY = "hosts"
+    }
+
     stages {
-        stage('Check ansible connectivity and syntax') {
+        stage("CHECK ANSIBLE CONNECTIVITY AND SYNTAX") {
             steps {
                 parallel (
-                    "Check connectivity": {
+                    "CHECK CONNECTIVITY": {
                         sh "ansible centos -m ping"
                     },
-                    "Check syntax": {
+                    "CHECK PLAYBOOK SYNTAX": {
                         ansiblePlaybook(
-                            inventory: 'hosts',
-                            playbook: 'configure_nginx.yml',
+                            inventory: "${INVENTORY}",
+                            playbook: "${PLAYBOOK}",
                             extras: '--syntax-check'
                         )
                     }
                 )
             }
         }
-        stage('Run Nginx Role') {
+        stage("RUN NGINX ROLE") {
             steps {
                 ansiblePlaybook(
-                    inventory: 'hosts',
-                    playbook: 'configure_nginx.yml',
+                    inventory: "${INVENTORY}",
+                    playbook: "${PLAYBOOK}",
                     extraVars: [verbose: 1]
                 )
             }
         }
     }
-    post ('Check response from nginx') {
+    post ("CHECK RESPONSE FROM NGINX") {
         success {
             sh "curl -s -I --connect-timeout 3 http://116.203.124.3:80"
         }

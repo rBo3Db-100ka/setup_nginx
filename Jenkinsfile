@@ -18,14 +18,15 @@ pipeline {
             steps {
                 ansiblePlaybook(
                     inventory: 'hosts',
-                    playbook: 'configure_nginx.yml'
+                    playbook: 'configure_nginx.yml',
+                    colorized: true
                 )
             }
         }
     }
     post ('Check response from nginx') {
         success {
-            sh "curl -I --connect-timeout 3 http://116.203.124.3:80"
+            sh "curl -s -I --connect-timeout 3 http://116.203.124.3:80"
         }
     }
 }

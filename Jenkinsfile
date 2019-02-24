@@ -3,20 +3,20 @@ pipeline {
 
     stages {
         stage('Check ansible connectivity and syntax') {
-            "parallels"
             steps {
-                check sytnax and connect
+                sh "pwd"
+                sh "ls -la"
             }
         }
         stage('Run Nginx role') {
             steps {
-                sh "ansible-playbook configure_nginx.yml"
+                sh echo "ansible-playbook configure_nginx.yml"
             }
         }
         stage('Check response from host') {
             steps {
                 script {
-                     curl http://116.203.124.3:80
+                     echo   "curl http://116.203.124.3:80"
                 }
             }
         }

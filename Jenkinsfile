@@ -10,7 +10,7 @@ pipeline {
                         sh "ansible centos -m ping"
                     },
                     check_syntax: {
-                        sh "/bin/false"
+                        sh "echo Done"
                     }
                 )
             }

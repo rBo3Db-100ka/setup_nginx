@@ -3,12 +3,31 @@ pipeline {
 
     parameters {
         string(
-            name: "What do you do",
-            description: "Customer"
+            name: "CONFIGURE_NGINX",
+            description: "nginx playbook"
+        string(
+            name: "CHECK_CONNECTIVITY ",
+            description: "check conn"
+        )
+        string(
+            name: "inventory",
+            description: "inventory file "
         )
     }
 
     stages {
+        stage('Input Params') {
+            input {
+                message "Should we continue?"
+                ok "Yes, we should."
+                submitter "alice,bob"
+                parameters {
+                    string(name: 'PERSON', defaultValue: 'Mr Jenkins', description: 'Who should I say hello to?')
+                }
+            }
+            steps {
+                echo "Hello, ${PERSON}, nice to meet you."
+            }
 
         stage("CHECK ANSIBLE CONNECTIVITY AND SYNTAX") {
             steps {
@@ -34,14 +53,15 @@ pipeline {
                 ansiblePlaybook(
                     inventory: "${INVENTORY}",
                     playbook: "${CONFIGURE_NGINX}",
-                    extraVars: [verbose: 1]
+                    extraVars: [customer: altamedica]
                 )
             }
         }
     }
+
     post ("CHECK RESPONSE FROM NGINX") {
         success {
-            sh "curl -s -I --connect-timeout 3 http://116.203.124.3:80"
+            sh "some check to get zabbix agent/proxy status"
         }
     }
 }

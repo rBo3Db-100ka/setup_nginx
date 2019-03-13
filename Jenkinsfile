@@ -1,6 +1,11 @@
 pipeline {
     agent any
-
+    parameters {
+        string(
+            name: "Test",
+            description: "Customer"
+        )
+    }
     environment {
         CONFIGURE_NGINX = "configure_nginx.yml"
         CHECK_CONNECTIVITY = "check_connectivity.yml"
@@ -8,18 +13,6 @@ pipeline {
     }
 
     stages {
-        stage('Input') {
-            input {
-                message "Should we continue?"
-                ok "Yes, we should."
-                submitter "alice,bob"
-                parameters {
-                    string(name: 'PERSON', defaultValue: 'Mr Jenkins', description: 'Who should I say hello to?')
-                }
-            }
-            steps {
-                echo "Hello, ${PERSON}, nice to meet you."
-            }
         }
         stage("CHECK ANSIBLE CONNECTIVITY AND SYNTAX") {
             steps {

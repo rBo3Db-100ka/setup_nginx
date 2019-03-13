@@ -4,7 +4,6 @@ pipeline {
     parameters {
         string(
             name: "Test1",
-            defaultValue: "Test",
             description: "Customer"
         )
     }

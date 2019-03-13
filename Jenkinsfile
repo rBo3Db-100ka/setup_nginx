@@ -5,7 +5,7 @@ pipeline {
         string(
             name: "CONFIGURE_NGINX",
             description: "nginx playbook"
-        )_
+        )
         string(
             name: "CHECK_CONNECTIVITY",
             description: "check conn"

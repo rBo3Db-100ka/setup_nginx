@@ -17,9 +17,9 @@ pipeline {
     }
     stages {
         stage("show vars") {
-            echo ${INVENTORY}
-            echo ${CHECK_CONNECTIVITY}
-            echo ${CONFIGURE_NGINX}
+            sh "echo ${INVENTORY}"
+            sh "echo ${CHECK_CONNECTIVITY}"
+            sh "echo ${CONFIGURE_NGINX}"
         }
         stage("CHECK ANSIBLE CONNECTIVITY AND SYNTAX") {
             steps {

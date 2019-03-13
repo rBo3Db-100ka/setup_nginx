@@ -15,8 +15,12 @@ pipeline {
             description: "inventory file"
         )
     }
-
     stages {
+        stage("show vars") {
+            echo ${INVENTORY}
+            echo ${CHECK_CONNECTIVITY}
+            echo ${CONFIGURE_NGINX}"
+        }
         stage("CHECK ANSIBLE CONNECTIVITY AND SYNTAX") {
             steps {
                 parallel (

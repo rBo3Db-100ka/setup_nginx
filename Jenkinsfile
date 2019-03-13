@@ -47,7 +47,7 @@ pipeline {
                 ansiblePlaybook(
                     inventory: "${INVENTORY}",
                     playbook: "${CONFIGURE_NGINX}",
-                    extraVars: [customer: altamedica]
+                    extraVars: [verbose: 1]
                 )
             }
         }

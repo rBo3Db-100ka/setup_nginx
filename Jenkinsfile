@@ -5,13 +5,14 @@ pipeline {
         string(
             name: "CONFIGURE_NGINX",
             description: "nginx playbook"
+        )_
         string(
-            name: "CHECK_CONNECTIVITY ",
+            name: "CHECK_CONNECTIVITY",
             description: "check conn"
         )
         string(
             name: "inventory",
-            description: "inventory file "
+            description: "inventory file"
         )
     }
 

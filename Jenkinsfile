@@ -3,7 +3,7 @@ pipeline {
 
     parameters {
         string(
-            name: "Test1",
+            name: "What do you do",
             description: "Customer"
         )
     }

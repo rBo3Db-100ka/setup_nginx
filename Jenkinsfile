@@ -1,18 +1,16 @@
 pipeline {
     agent any
-    
-    parameters {
-        string(name: "Test", description: "Customer")
-    }
 
-    environment {
-        CONFIGURE_NGINX = "configure_nginx.yml"
-        CHECK_CONNECTIVITY = "check_connectivity.yml"
-        INVENTORY = "hosts"
+    parameters {
+        string(
+            name: "Test1",
+            defaultValue: "Test",
+            description: "Customer"
+        )
     }
 
     stages {
-        
+
         stage("CHECK ANSIBLE CONNECTIVITY AND SYNTAX") {
             steps {
                 parallel (

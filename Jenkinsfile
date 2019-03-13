@@ -1,11 +1,10 @@
 pipeline {
     agent any
+    
     parameters {
-        string(
-            name: "Test",
-            description: "Customer"
-        )
+        string(name: "Test", description: "Customer")
     }
+
     environment {
         CONFIGURE_NGINX = "configure_nginx.yml"
         CHECK_CONNECTIVITY = "check_connectivity.yml"
@@ -13,7 +12,7 @@ pipeline {
     }
 
     stages {
-        }
+        
         stage("CHECK ANSIBLE CONNECTIVITY AND SYNTAX") {
             steps {
                 parallel (
